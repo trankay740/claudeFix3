@@ -1,0 +1,254 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Warm Luxury Palette */
+  --color-cream: #f5efe6;
+  --color-champagne: #e8dcc8;
+  --color-ivory: #faf6f0;
+  --color-beige: #d9c9b3;
+  --color-warm-dark: #2a221c;
+  --color-warm-darker: #1c1612;
+  --color-espresso: #3d2f24;
+  --color-gold: #c9a96e;
+  --color-rose: #c89b8c;
+  --color-mauve: #a08a7e;
+  --color-text-warm: #4a3f35;
+  --color-text-soft: #7a6b5d;
+
+  /* Original dark palette (kept for lower sections) */
+  --color-background: #131313;
+  --color-surface: #131313;
+  --color-surface-dim: #131313;
+  --color-surface-bright: #393939;
+  --color-surface-container-lowest: #0e0e0e;
+  --color-surface-container-low: #1b1b1b;
+  --color-surface-container: #1f1f1f;
+  --color-surface-container-high: #2a2a2a;
+  --color-surface-container-highest: #353535;
+  --color-surface-variant: #353535;
+  --color-on-background: #e2e2e2;
+  --color-on-surface: #e2e2e2;
+  --color-on-surface-variant: #c5c7c9;
+  --color-primary: #ffffff;
+  --color-on-primary: #2f3132;
+  --color-primary-container: #e2e2e4;
+  --color-on-primary-container: #636466;
+  --color-primary-fixed: #e2e2e4;
+  --color-primary-fixed-dim: #c6c6c8;
+  --color-on-primary-fixed: #1a1c1d;
+  --color-on-primary-fixed-variant: #454749;
+  --color-secondary: #c6c6cb;
+  --color-on-secondary: #2f3034;
+  --color-secondary-container: #46464b;
+  --color-on-secondary-container: #b5b4ba;
+  --color-secondary-fixed: #e3e2e7;
+  --color-secondary-fixed-dim: #c6c6cb;
+  --color-on-secondary-fixed: #1a1b1f;
+  --color-on-secondary-fixed-variant: #46464b;
+  --color-tertiary: #ffffff;
+  --color-on-tertiary: #303032;
+  --color-tertiary-container: #e4e2e4;
+  --color-on-tertiary-container: #656466;
+  --color-tertiary-fixed: #e4e2e4;
+  --color-tertiary-fixed-dim: #c8c6c8;
+  --color-on-tertiary-fixed: #1b1b1d;
+  --color-on-tertiary-fixed-variant: #474649;
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+  --color-error-container: #93000a;
+  --color-on-error-container: #ffdad6;
+  --color-outline: #8f9194;
+  --color-outline-variant: #44474a;
+  --color-inverse-surface: #e2e2e2;
+  --color-inverse-on-surface: #303030;
+  --color-inverse-primary: #5d5e60;
+  --color-surface-tint: #c6c6c8;
+
+  /* Border Radius */
+  --radius-DEFAULT: 0.125rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
+
+  /* Spacing */
+  --spacing-container-max: 1200px;
+  --spacing-unit: 4px;
+  --spacing-margin-mobile: 20px;
+  --spacing-gutter: 24px;
+  --spacing-margin-desktop: 64px;
+
+  /* Font Families */
+  --font-display: 'Newsreader', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #FAF8F5;
+  color: #e2e2e2;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Inter', sans-serif;
+}
+
+::selection {
+  background-color: rgba(201, 169, 110, 0.3);
+  color: #ffffff;
+}
+
+/* ── Hero responsive geometry ──
+   The Hero content is a single flex column (#hero-stack) anchored to the
+   bottom-left. Its inner block width, title font-size, and bottom padding
+   scale by viewport via clamp() and media queries so the heading never
+   wraps to three lines and the badge never overlaps the description.
+
+   Three regimes:
+     MOBILE  < 768px
+     TABLET  768–1023px
+     DESKTOP 1024px+   (matches the original composition) */
+
+:root {
+  /* DESKTOP (default) — preserves the original 42%-width composition */
+  --hero-inner-width: 42%;
+  --hero-inner-min-width: 320px;
+  --hero-title-font-size: clamp(48px, 9vw, 128px);
+  --hero-description-font-size: 15px;
+  --hero-description-max-width: 520px;
+  --hero-stack-padding-bottom: 80px;
+  --hero-stack-padding-left: 112px;
+}
+
+/* TABLET 768–1023px */
+@media (max-width: 1023px) {
+  :root {
+    --hero-inner-width: 62%;
+    --hero-inner-min-width: 360px;
+    --hero-title-font-size: clamp(44px, 7.2vw, 88px);
+    --hero-description-font-size: 15px;
+    --hero-description-max-width: 460px;
+    /* Reserve a bottom safe area so the CTA row clears the centered
+       scroll-down indicator (visible at md+). Scales with viewport
+       height so short tablets get enough clearance without pushing
+       content too high on tall ones. */
+    --hero-stack-padding-bottom: clamp(120px, 16vh, 160px);
+    --hero-stack-padding-left: 48px;
+  }
+}
+
+/* MOBILE < 768px */
+@media (max-width: 767px) {
+  :root {
+    --hero-inner-width: 88%;
+    --hero-inner-min-width: 0;
+    --hero-title-font-size: clamp(40px, 11vw, 64px);
+    --hero-description-font-size: 14px;
+    --hero-description-max-width: 100%;
+    --hero-stack-padding-bottom: 56px;
+    --hero-stack-padding-left: 24px;
+  }
+}
+
+/* iPad/tablet portrait at the desktop-width edge (1024–1099px) on a tall
+   screen. At 1024px the desktop rules apply (80px bottom padding), but
+   the #hero-scroll indicator is visible (md+). On a tall viewport the
+   CTA row collides with the indicator. This narrow override reserves a
+   bottom safe area ONLY for this geometry — short desktops (1024×768,
+   1440×900) keep the original 80px and are visually unchanged. */
+@media (min-width: 1024px) and (max-width: 1099px) and (min-height: 1100px) {
+  :root {
+    --hero-stack-padding-bottom: clamp(120px, 16vh, 160px);
+  }
+}
+
+/* The stack fills the Hero; the inner block holds the four flow items. */
+.hero-stack {
+  padding-left: var(--hero-stack-padding-left);
+  padding-bottom: var(--hero-stack-padding-bottom);
+  padding-right: 24px;
+}
+
+.hero-stack-inner {
+  width: var(--hero-inner-width);
+  min-width: var(--hero-inner-min-width);
+  max-width: 100%;
+}
+
+/* "Tóc Đẹp" must never wrap. white-space: nowrap is the guarantee;
+   the responsive font-size + width above ensure it always fits. */
+.hero-title {
+  font-size: var(--hero-title-font-size);
+  white-space: nowrap;
+}
+
+.hero-description {
+  font-size: var(--hero-description-font-size);
+  line-height: 1.8;
+  max-width: var(--hero-description-max-width);
+}
+
+/* Intro Overlay — animated by GSAP, these are fallbacks */
+.intro-overlay {
+  will-change: opacity, clip-path;
+}
+
+.title-char {
+  display: inline-block;
+  will-change: opacity, transform;
+}
+
+.intro-frame {
+  will-change: width, height, transform, opacity;
+  transform-origin: center center;
+}
+
+.hero-content-item {
+  will-change: opacity, transform;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.2; transform: scaleY(1); }
+  50% { opacity: 0.8; transform: scaleY(1.1); }
+}
+
+.scroll-line {
+  animation: scrollPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marqueeScroll 40s linear infinite;
+}
+
+/* ── Floating contact widget ──
+   Subtle premium idle animation: a gentle breathing scale. Slow,
+   continuous, GPU-accelerated (transform only). Staggered per-icon via
+   nth-child delays so they don't all breathe in unison. Paused on hover. */
+@keyframes floatingBreathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+.floating-contact-btn {
+  animation: floatingBreathe 4s ease-in-out infinite;
+}
+
+.floating-contact-btn:nth-child(1) { animation-delay: 0s; }
+.floating-contact-btn:nth-child(2) { animation-delay: 0.6s; }
+.floating-contact-btn:nth-child(3) { animation-delay: 1.2s; }
+.floating-contact-btn:nth-child(4) { animation-delay: 1.8s; }
+
+.floating-contact-btn:hover {
+  animation-play-state: paused;
+}
